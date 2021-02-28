@@ -17,6 +17,7 @@ struct SimpleUIApp: App {
 }
 
 extension SimpleUIApp {
+    
     func makeViewModel() -> ContentView.ViewModel {
         let searchViewModel: SearchBar.ViewModel = .init(searchText: "")
         let viewModel:ContentView.ViewModel = .init(searchViewModel: searchViewModel, store: ["Anshul", "Ayush", "Adwika", "Anaya", "Belu", "Bajrangi", "Dolly", "Purab"])

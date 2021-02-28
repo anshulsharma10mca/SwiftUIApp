@@ -25,7 +25,7 @@ extension ContentView: View {
 }
 
 public extension ContentView {
-    final class ViewModel: ObservableObject {
+    final class ViewModel {
         
         var searchViewModel: SearchBar.ViewModel
         
@@ -43,3 +43,5 @@ public extension ContentView {
         }
     }
 }
+
+extension ContentView.ViewModel: ObservableObject {}
