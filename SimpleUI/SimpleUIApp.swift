@@ -6,13 +6,23 @@
 //
 
 import SwiftUI
+import Combine
 
 @main
-struct SimpleUIApp: App {
+class SimpleUIApp: App {
+    
+    var subscriptions: [AnyCancellable] = []
+    
     var body: some Scene {
         WindowGroup {
             ContentView(viewModel: makeViewModel())
         }
+    }
+    
+    required public init() {}
+    
+    deinit {
+        subscriptions.removeAll()
     }
 }
 
@@ -23,10 +33,12 @@ extension SimpleUIApp {
         let viewModel:ContentView.ViewModel = .init(searchViewModel: searchViewModel, store: ["Anshul", "Ayush", "Adwika", "Anaya", "Belu", "Bajrangi", "Dolly", "Purab"])
         
         let publisher = searchViewModel.$searchText
-        let subscription = publisher.sink { (text) in
+        publisher.sink { (text) in
             viewModel.filteredValues = viewModel.store.filter({ text.isEmpty ? true : $0.lowercased().range(of: text.lowercased()) != nil })
         }
-        viewModel.subscription = subscription
+        .store(in: &subscriptions)
         return viewModel
     }
 }
+
+
